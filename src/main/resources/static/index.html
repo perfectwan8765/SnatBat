@@ -10,27 +10,40 @@
 
         <!-- BootStarp CSS -->
         <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
-        <link rel="stylesheet" href="/css/bootstrap/bootstrap-icons.css" />
+        <!-- fontawesome CSS -->
+        <link rel="stylesheet" href="/css/fontawesome/all.min.css" />
 
+        <link rel="stylesheet" href="/css/main.css" />
     </head>
     <body>
-        <div>
-            <div>
-                <input type="text" id="from" placeholder="Choose a nickname"/>
+        <div class="bat">
+        </div>
+        <div class="chat">
+            <div id="room">
+                <div class="input-group mb-3">
+                    <input type="text" id="from" class="form-control" placeholder="Choose a nickname" />
+                    <button id="connect" class="btn btn-outline-success" onclick="connect();">
+                        <i class="fas fa-door-open"></i>
+                    </button>
+                    <button id="disconnect" class="btn btn-outline-danger" disabled="disabled" onclick="disconnect();">
+                        <i class="fas fa-door-closed"></i>
+                    </button>
+                </div>
             </div>
-            <br />
-            <div>
-                <button id="connect" onclick="connect();">Connect</button>
-                <button id="disconnect" disabled="disabled" onclick="disconnect();">
-                    Disconnect
-                </button>
+            <ul class="messages"></ul>
+            <div id="conversationDiv" class="input-group mb-3">
+                <input type="text" id="text" class="form-control" placeholder="Write a message..." />
+                <button type="button" id="sendMessage" class="btn btn-outline-success" onclick="sendMessage();"><i class="fas fa-paper-plane"></i></button>
             </div>
-            <br />
-            <div id="conversationDiv">
-                <input type="text" id="text" placeholder="Write a message..."/>
-                <button id="sendMessage" onclick="sendMessage();">Send</button>
-                <p id="response"></p>
-            </div>
+        </div>
+
+        <div class="message_template">
+            <li class="message">
+                <div class="avatar"></div>
+                <div class="text_wrapper">
+                    <div class="text"></div>
+                </div>
+            </li>
         </div>
 
         <!-- JQuery -->

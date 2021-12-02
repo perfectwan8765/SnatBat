@@ -1,12 +1,28 @@
-var stompClient = null;
+let stompClient = null;
+let Message;
+Message = function (arg) {
+    this.text = arg.text;
+    this.message_side = arg.message_side;
+
+    this.draw = function (_this) {
+        return function () {
+            let $message;
+            $message = $($('.message_template').clone().html());
+            $message.addClass(_this.message_side).find('.text').html(_this.text);
+            $('.messages').append($message);
+            return setTimeout(function () {
+                return $message.addClass('appeared');
+            }, 0);
+        };
+    }(this);
+    
+    return this;
+};
             
 function setConnected(connected) {
-    
     $('#connect').attr('disabled', connected);
     $('#disconnect').attr('disabled', !connected);
-
-    $('#conversationDiv').css('visibility', connected ? 'visible' : 'hidden');
-    $('#response').text('');
+    $('#text').text('');
 }
             
 function connect() {
@@ -40,15 +56,23 @@ function sendMessage() {
 }
             
 function showMessageOutput(messageOutput) {
-    const response = $('#response');
-    let p = $('<p></p>');
+    let $messages, message;
 
-    p.css('wordWrap', 'break-word');
-    p.text(`${messageOutput.from}: ${messageOutput.text} (${messageOutput.time})`);
+    console.log(messageOutput)
 
-    response.append(p);
+    $messages = $('.messages');
+    message_side = 'right';
+
+    message = new Message({
+        text: messageOutput.text,
+        message_side: message_side
+    });
+    
+    message.draw();
+            
+    return $messages.animate({ scrollTop: $messages.prop('scrollHeight') }, 300);
 }
 
-$( document ).ready(function() {
+$(document).ready(function() {
     disconnect();
 });
