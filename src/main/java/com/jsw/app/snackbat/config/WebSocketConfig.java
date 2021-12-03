@@ -1,5 +1,7 @@
 package com.jsw.app.snackbat.config;
 
+import com.jsw.app.snackbat.handler.CustomHandsakeHandler;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -18,7 +20,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat").withSockJS();
+        registry.addEndpoint("/chat")
+                .setHandshakeHandler(new CustomHandsakeHandler())
+                .withSockJS();
     }
 
 }

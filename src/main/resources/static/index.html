@@ -22,18 +22,23 @@
             <div id="room">
                 <div class="input-group mb-3">
                     <input type="text" id="from" class="form-control" placeholder="Choose a nickname" />
-                    <button id="connect" class="btn btn-outline-success" onclick="connect();">
+                    <button id="connect" class="btn btn-outline-success" >
                         <i class="fas fa-door-open"></i>
                     </button>
-                    <button id="disconnect" class="btn btn-outline-danger" disabled="disabled" onclick="disconnect();">
+                    <button id="disconnect" class="btn btn-outline-danger" disabled="disabled" >
                         <i class="fas fa-door-closed"></i>
                     </button>
                 </div>
+                <ul class="users"></ul>
             </div>
-            <ul class="messages"></ul>
-            <div id="conversationDiv" class="input-group mb-3">
-                <input type="text" id="text" class="form-control" placeholder="Write a message..." />
-                <button type="button" id="sendMessage" class="btn btn-outline-success" onclick="sendMessage();"><i class="fas fa-paper-plane"></i></button>
+            <div>
+                <ul class="messages"></ul>
+                <div id="conversationDiv" class="input-group my-2">
+                    <input type="text" id="text" class="form-control" disabled="disabled" placeholder="Write a message..." />
+                    <button type="button" id="sendMessage" class="btn btn-outline-success" disabled="disabled" >
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
             </div>
         </div>
 

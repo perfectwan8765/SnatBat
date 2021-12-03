@@ -1,14 +1,18 @@
 let stompClient = null;
+let username = null;
 let Message;
+
 Message = function (arg) {
+    this.from = arg.from;
     this.text = arg.text;
     this.message_side = arg.message_side;
 
     this.draw = function (_this) {
         return function () {
-            let $message;
-            $message = $($('.message_template').clone().html());
+            let $message = $($('.message_template').clone().html());
             $message.addClass(_this.message_side).find('.text').html(_this.text);
+            $message.find('.avatar').html(_this.from.substr(0,1).toUpperCase());
+
             $('.messages').append($message);
             return setTimeout(function () {
                 return $message.addClass('appeared');
@@ -22,10 +26,22 @@ Message = function (arg) {
 function setConnected(connected) {
     $('#connect').attr('disabled', connected);
     $('#disconnect').attr('disabled', !connected);
-    $('#text').text('');
+    // text field
+    $('#text').attr('disabled', !connected);
+    $('#text').val('');
+
+    $('#sendMessage').attr('disabled', !connected);
 }
             
 function connect() {
+    const from = $('#from').val();
+
+    if (!from) {
+        alert('Choose a nickname');
+        return;
+    }
+    username = from;
+
     const socket = new SockJS('/chat');
     stompClient = Stomp.over(socket);  
     stompClient.connect({}, function(frame) {
@@ -53,17 +69,16 @@ function sendMessage() {
     stompClient.send("/app/chat", {}, 
         JSON.stringify({'from':from, 'text':text})
     );
+
+    $('#text').val('');
 }
             
 function showMessageOutput(messageOutput) {
-    let $messages, message;
+    const $messages = $('.messages');
+    const message_side = messageOutput.from === username ? 'right' : 'left';
 
-    console.log(messageOutput)
-
-    $messages = $('.messages');
-    message_side = 'right';
-
-    message = new Message({
+    const message = new Message({
+        from: messageOutput.from,
         text: messageOutput.text,
         message_side: message_side
     });
@@ -75,4 +90,16 @@ function showMessageOutput(messageOutput) {
 
 $(document).ready(function() {
     disconnect();
+
+    $('#connect').click(function (){
+        connect();
+    });
+
+    $('#disconnect').click(function (){
+        disconnect();
+    });
+
+    $('#sendMessage').click(function (){
+        sendMessage();
+    });
 });
