@@ -44,7 +44,9 @@ function connect() {
 
     const socket = new SockJS('/chat');
     stompClient = Stomp.over(socket);  
-    stompClient.connect({}, function(frame) {
+    stompClient.connect({
+        name: from
+    }, function(frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
 
