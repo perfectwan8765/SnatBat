@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
     <head>
         <meta charset="UTF-8" />
+        <meta name="description" content="Web Application for Bat of Snack after Lunch Time" />
         <meta name="author" content="jsw" />
         <title>SnackBat</title>
 
@@ -21,7 +24,7 @@
         <div class="chat">
             <div id="room">
                 <div class="input-group mb-3">
-                    <input type="text" id="from" class="form-control" placeholder="Choose a nickname" />
+                    <span sec:authentication="name"></span>
                     <button id="connect" class="btn btn-outline-success" >
                         <i class="fas fa-door-open"></i>
                     </button>

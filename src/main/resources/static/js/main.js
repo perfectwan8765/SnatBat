@@ -34,21 +34,10 @@ function setConnected(connected) {
 }
             
 function connect() {
-    const from = $('#from').val();
-
-    if (!from) {
-        alert('Choose a nickname');
-        return;
-    }
-    username = from;
-
     const socket = new SockJS('/chat');
     stompClient = Stomp.over(socket);  
-    stompClient.connect({
-        name: from
-    }, function(frame) {
+    stompClient.connect({}, function(frame) {
         setConnected(true);
-        console.log('Connected: ' + frame);
 
         stompClient.subscribe('/topic/messages', function(messageOutput) {
             showMessageOutput(JSON.parse(messageOutput.body));
@@ -93,13 +82,7 @@ function showMessageOutput(messageOutput) {
 $(document).ready(function() {
     disconnect();
 
-    $('#connect').click(function (){
-        connect();
-    });
-
-    $('#disconnect').click(function (){
-        disconnect();
-    });
+    connect();
 
     $('#sendMessage').click(function (){
         sendMessage();

@@ -36,7 +36,6 @@ public class CustomChannelInterceptor implements ChannelInterceptor {
                     accessor.setUser(principal);
                 }
 
-                
                 log.info("key:{}, value:{}", head.getKey(), head.getValue());
             }
         }

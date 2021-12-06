@@ -1,10 +1,8 @@
 package com.jsw.app.snackbat.config;
 
-import com.jsw.app.snackbat.handler.CustomHandsakeHandler;
 import com.jsw.app.snackbat.interceptor.CustomChannelInterceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
