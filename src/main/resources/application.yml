@@ -3,3 +3,5 @@ spring:
     enabled: true
     prefix: classpath:/templates/
     suffix: .html
+  jwt:
+    secret: govlepel@$&

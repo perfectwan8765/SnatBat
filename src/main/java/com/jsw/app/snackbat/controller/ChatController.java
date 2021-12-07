@@ -20,8 +20,8 @@ public class ChatController {
     @Autowired 
     private SimpUserRegistry simpUserRegistry;
 
-    @MessageMapping("/chat")
-    @SendTo("/topic/messages")
+    @MessageMapping("/secured/chat")
+    @SendTo("/secured/history")
     public Message send(Message message) throws Exception {
 
         simpUserRegistry.getUsers().stream()

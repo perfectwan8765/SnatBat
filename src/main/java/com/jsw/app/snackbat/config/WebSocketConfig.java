@@ -19,13 +19,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
-        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/secured/history");
+        config.setApplicationDestinationPrefixes("/spring-security-mvc-socket");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat")
+        registry.addEndpoint("/secured/chat")
                 // .setHandshakeHandler(new CustomHandsakeHandler())
                 .withSockJS();
     }

@@ -34,12 +34,12 @@ function setConnected(connected) {
 }
             
 function connect() {
-    const socket = new SockJS('/chat');
+    const socket = new SockJS('/secured/chat');
     stompClient = Stomp.over(socket);  
     stompClient.connect({}, function(frame) {
         setConnected(true);
 
-        stompClient.subscribe('/topic/messages', function(messageOutput) {
+        stompClient.subscribe('/secured/history', function(messageOutput) {
             showMessageOutput(JSON.parse(messageOutput.body));
         });
     });
@@ -57,7 +57,7 @@ function sendMessage() {
     const from = $('#from').val();
     const text = $('#text').val();
 
-    stompClient.send("/app/chat", {}, 
+    stompClient.send("/spring-security-mvc-socket/secured/chat", {}, 
         JSON.stringify({'from':from, 'text':text})
     );
 
