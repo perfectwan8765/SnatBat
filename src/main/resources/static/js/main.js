@@ -39,7 +39,12 @@ function connect() {
     stompClient.connect({}, function(frame) {
         setConnected(true);
 
+        stompClient.send("/spring-security-mvc-socket/secured/join", {}, 
+            JSON.stringify({'from':$('#from').val(), 'text':'join'})
+        );
+
         stompClient.subscribe('/secured/history', function(messageOutput) {
+            console.log(messageOutput);
             showMessageOutput(JSON.parse(messageOutput.body));
         });
     });

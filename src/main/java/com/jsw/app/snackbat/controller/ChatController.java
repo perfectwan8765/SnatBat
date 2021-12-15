@@ -23,14 +23,15 @@ public class ChatController {
     @MessageMapping("/secured/chat")
     @SendTo("/secured/history")
     public Message send(Message message) throws Exception {
-
-        simpUserRegistry.getUsers().stream()
-                    .map(u -> u.getName())
-                    .forEach(log::info);
-    
-
         String time = new SimpleDateFormat("HH:mm").format(new Date());
-        return new Message(message.getFrom(), message.getText(), time);
+        return new Message(message.getFrom(), message.getText(), time, "send");
+    }
+
+    @MessageMapping("/secured/join")
+    @SendTo("/secured/history")
+    public Message join(Message message) throws Exception {
+        String time = new SimpleDateFormat("HH:mm").format(new Date());
+        return new Message(message.getFrom(), message.getText(), time, "join");
     }
 
 }
