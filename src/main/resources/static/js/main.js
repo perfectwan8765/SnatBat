@@ -1,5 +1,4 @@
 let stompClient = null;
-let username = null;
 let Message;
 
 Message = function (arg) {
@@ -40,11 +39,10 @@ function connect() {
         setConnected(true);
 
         stompClient.send("/spring-security-mvc-socket/secured/join", {}, 
-            JSON.stringify({'from':$('#from').val(), 'text':'join'})
+            JSON.stringify({'from': userName, 'text':'join'})
         );
 
         stompClient.subscribe('/secured/history', function(messageOutput) {
-            console.log(messageOutput);
             showMessageOutput(JSON.parse(messageOutput.body));
         });
     });
@@ -59,19 +57,33 @@ function disconnect() {
 }
             
 function sendMessage() {
-    const from = $('#from').val();
     const text = $('#text').val();
 
     stompClient.send("/spring-security-mvc-socket/secured/chat", {}, 
-        JSON.stringify({'from':from, 'text':text})
+        JSON.stringify({'from':userName, 'text':text})
     );
 
     $('#text').val('');
 }
             
 function showMessageOutput(messageOutput) {
+    const type = messageOutput.type;
+
+    if (type == 'join') {
+        const users = $('#users');
+        users.empty();
+
+        $.each(messageOutput.userList, function(index, item) {
+            let userLi = $('<li></li>');
+            userLi.text(item);
+            users.append(userLi);
+        });
+        
+        return;
+    }
+
     const $messages = $('.messages');
-    const message_side = messageOutput.from === username ? 'right' : 'left';
+    const message_side = messageOutput.from === userName ? 'right' : 'left';
 
     const message = new Message({
         from: messageOutput.from,

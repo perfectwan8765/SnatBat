@@ -1,5 +1,7 @@
 package com.jsw.app.snackbat.vo;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,5 +15,6 @@ public class Message {
     private String text;
     private String time;
     private String type;
+    private List<String> userList;
 
 }

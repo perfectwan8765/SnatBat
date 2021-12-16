@@ -24,7 +24,7 @@
         <div class="chat">
             <div id="room">
                 <div class="input-group mb-3">
-                    <span sec:authentication="name"></span>
+                    <span id="from" sec:authentication="name"></span>
                     <button id="connect" class="btn btn-outline-success" >
                         <i class="fas fa-door-open"></i>
                     </button>
@@ -32,7 +32,7 @@
                         <i class="fas fa-door-closed"></i>
                     </button>
                 </div>
-                <ul class="users"></ul>
+                <ul id="users"></ul>
             </div>
             <div>
                 <ul class="messages"></ul>
@@ -54,13 +54,18 @@
             </li>
         </div>
 
+        <script th:inline="javascript">
+            const userName = /*[[${#authentication.principal.username}]]*/
+        </script>
+
         <!-- JQuery -->
         <script type="text/javascript" src="/js/jquery/jquery-3.6.0.min.js"></script>
         <!-- Bootstrap -->
         <script type="text/javascript" src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+        
         <!-- sockjs, stomp-->
-        <script type="text/javascript" src="/js/sockjs.min.js"></script>
-        <script type="text/javascript" src="/js/stomp.min.js"></script>
+        <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+        <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
 
         <script type="text/javascript" src="/js/main.js"></script>
 
