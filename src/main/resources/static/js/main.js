@@ -101,7 +101,16 @@ $(document).ready(function() {
 
     connect();
 
-    $('#sendMessage').click(function (){
+    $('#sendMessage').click(function () {
+        if ($('#text').val() === "") {
+            return;
+        }
         sendMessage();
+    });
+
+    $('#text').keyup(function (event){
+        if (event.keyCode == 13) {
+            $('#sendMessage').click();
+        }
     });
 });

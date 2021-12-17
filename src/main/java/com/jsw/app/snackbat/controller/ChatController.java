@@ -30,7 +30,7 @@ public class ChatController {
     @MessageMapping("/secured/chat")
     @SendTo("/secured/history")
     public Message send(Message message) throws Exception {
-        return new Message(message.getFrom(), null, simpleDateFormat.format(new Date()), "send", null);
+        return new Message(message.getFrom(), message.getText(), simpleDateFormat.format(new Date()), "send", null);
     }
 
     @MessageMapping("/secured/join")
