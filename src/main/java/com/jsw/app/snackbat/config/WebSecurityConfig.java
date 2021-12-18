@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure (HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/secured/**/**")
             .disable()
             .headers().frameOptions().sameOrigin()
@@ -42,6 +42,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .usernameParameter("id")
             .passwordParameter("pw")
             .defaultSuccessUrl("/");
+
+        http.logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID");
     }
 
     /*

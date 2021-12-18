@@ -113,4 +113,8 @@ $(document).ready(function() {
             $('#sendMessage').click();
         }
     });
+
+    $('#disconnect').click(function (event){
+        location.href = '/logout';
+    });
 });
