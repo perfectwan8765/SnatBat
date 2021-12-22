@@ -41,11 +41,11 @@ public class ChatRoomRepository {
             }
         }
 
-        return null;
+        return Optional.empty();
     }
 
-    public ChatRoom createChatRoom (String name) {
-        ChatRoom chatRoom = ChatRoom.create(name);
+    public ChatRoom createChatRoom (String name, String admin) {
+        ChatRoom chatRoom = ChatRoom.create(name, admin);
         chatRoomMap.put(chatRoom.getRooId(), chatRoom);
 
         return chatRoom;

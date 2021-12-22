@@ -1,13 +1,13 @@
 package com.jsw.app.snackbat.controller;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.jsw.app.snackbat.repository.ChatRoomRepository;
-import com.jsw.app.snackbat.vo.ChatRoom;
+import com.jsw.app.snackbat.service.RoomService;
 import com.jsw.app.snackbat.vo.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,7 @@ import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,12 +30,12 @@ public class ChatController {
 
     @Autowired 
     private SimpUserRegistry simpUserRegistry;
-    
-    @Autowired
-    private ChatRoomRepository roomRepository;
 
     @Autowired
     private SimpleDateFormat simpleDateFormat;
+
+    @Autowired
+    private RoomService roomSerivce;
 
     @MessageMapping("/secured/chat")
     @SendTo("/secured/history")
@@ -57,21 +58,16 @@ public class ChatController {
         return new Message(message.getFrom(), null, simpleDateFormat.format(new Date()), "join", userList);
     }
 
-    @GetMapping("/room")
+    @PostMapping("/room")
     @ResponseBody
-    public ResponseEntity<Object> createRoom (@RequestParam("roomname") String name) {
-        // 같은 채팅방명으로 이미 존재한다면
-        if (roomRepository.findRoomByName(name).isPresent()) {
-            return ResponseEntity.badRequest().body("Exists Name");
-        }
-
-        return ResponseEntity.ok(roomRepository.createChatRoom(name));
+    public ResponseEntity<Object> createRoom (@RequestParam("name") String roomName, Principal principal) {
+        return ResponseEntity.ok(roomSerivce.createRoom(roomName, principal.getName()));
     }
 
     @GetMapping("/rooms")
     @ResponseBody
-    public List<ChatRoom> getRoomList () {
-        return roomRepository.findAllRoom();
+    public ResponseEntity<Object> getRoomList () {
+        return ResponseEntity.ok(roomSerivce.getChatRoomList());
     }
 
 }

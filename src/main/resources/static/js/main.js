@@ -114,7 +114,26 @@ $(document).ready(function() {
         }
     });
 
-    $('#disconnect').click(function (event){
+    $('#makeRoom').click(function (event){
+        const name = $('#roomname').val();
+
+        $.ajax({
+            type: "POST",
+            url: '/room',
+            data: {
+                "name" : name
+            },
+            success: function(xhr, textStatus, errorThrown) {
+                console.log(xhr);
+                console.log(textStatus);
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                
+            }
+        })
+    });
+
+    $('#logout').click(function (event){
         location.href = '/logout';
     });
 });

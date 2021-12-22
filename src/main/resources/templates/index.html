@@ -25,11 +25,17 @@
             <div id="room">
                 <div class="input-group mb-3">
                     <span id="from" sec:authentication="name"></span>
+                    <input type="text" id="roomname" class="form-control" placeholder="Make ChatRoom" />
+                    <button id="makeRoom" class="btn btn-outline-primary" >
+                        <i class="fas fa-door-open"></i>
+                    </button>
+                    <!--
                     <button id="makeRoom" class="btn btn-outline-success" >
                         <i class="fas fa-door-open"></i>
                     </button>
-                    <button id="disconnect" class="btn btn-outline-danger" disabled="disabled" >
-                        <i class="fas fa-door-closed"></i>
+                    -->
+                    <button id="logout" class="btn btn-outline-danger" disabled="disabled" >
+                        <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
                 <ul id="users"></ul>
